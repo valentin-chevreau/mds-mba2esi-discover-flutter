@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world_flutter/page/menu_page.dart';
 import 'package:hello_world_flutter/widget/generic_button_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +11,9 @@ class _LoginPageState extends State<LoginPage> {
 //  Color _loginButtonColor = Colors.deepPurple;
 
   bool _isLoading = false;
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(height: 16.0),
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 isDense: true,
                 labelText: 'Username',
@@ -64,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(height: 16.0),
             TextField(
+              controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 isDense: true,
@@ -73,31 +79,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(height: 32.0),
-            GenericButtonWidget('Login', () {
-              print('login pressed');
-              setState(() {
-                _isLoading = true;
-              });
-
-              Future.delayed(Duration(seconds: 1), () {
-                setState(() {
-                  _isLoading = false;
-                });
-              });
-            }),
+            GenericButtonWidget('Login', _loginPressed),
             Container(height: 16.0),
-            GenericButtonWidget('Register', () {
-              print('register pressed');
-              setState(() {
-                _isLoading = true;
-              });
-
-              Future.delayed(Duration(seconds: 1), () {
-                setState(() {
-                  _isLoading = false;
-                });
-              });
-            }),
+            GenericButtonWidget('Register', _registerPressed()),
 //            GestureDetector(
 //              onTapDown: (detail) {
 //                setState(() {
@@ -127,5 +111,39 @@ class _LoginPageState extends State<LoginPage> {
       borderSide: BorderSide(
           color: isFocused ? Colors.lightBlue : Colors.blue, width: 1.0),
     );
+  }
+
+  _loginPressed() async {
+    print('login pressed');
+    setState(() {
+      _isLoading = true;
+    });
+
+//    Future.delayed(Duration(seconds: 1), () {
+//      setState(() {
+//        _isLoading = false;
+//      });
+//    });
+
+    await Future.delayed(Duration(seconds: 1));
+
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    if (username == 'admin' && password == 'admin') {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MenuPageWidget()));
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  _registerPressed() {
+    print('register pressed');
+    setState(() {
+      _isLoading = true;
+    });
   }
 }
