@@ -15,6 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+  String errorInfo = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 enabledBorder: _textFieldBorder(),
               ),
             ),
+            _showErrorIfNeeded(),
             Container(height: 32.0),
             GenericButtonWidget('Login', _loginPressed),
             Container(height: 16.0),
@@ -106,16 +109,28 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _textFieldBorder({bool isFocused = false}) {
-    return OutlineInputBorder(
-      borderSide: BorderSide(
-          color: isFocused ? Colors.lightBlue : Colors.blue, width: 1.0),
-    );
+  Widget _showErrorIfNeeded() {
+    if (errorInfo.length > 0) {
+      return Container(
+        height: 48.0,
+        child: Center(
+          child: Text(
+            errorInfo,
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        height: 48.0,
+      );
+    }
   }
 
   _loginPressed() async {
     print('login pressed');
     setState(() {
+      errorInfo = '';
       _isLoading = true;
     });
 
@@ -135,6 +150,7 @@ class _LoginPageState extends State<LoginPage> {
           context, MaterialPageRoute(builder: (context) => MenuPageWidget()));
     } else {
       setState(() {
+        errorInfo = 'Incorrect credentials';
         _isLoading = false;
       });
     }
@@ -145,5 +161,12 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _isLoading = true;
     });
+  }
+
+  _textFieldBorder({bool isFocused = false}) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+          color: isFocused ? Colors.lightBlue : Colors.blue, width: 1.0),
+    );
   }
 }
