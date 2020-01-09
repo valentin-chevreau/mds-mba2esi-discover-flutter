@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LoginButtonWidget extends StatelessWidget {
+class StaticLoginButtonWidget extends StatelessWidget {
   final Color _color;
 
-  LoginButtonWidget(this._color);
+  StaticLoginButtonWidget(this._color);
 
   @override
   Widget build(BuildContext context) {
