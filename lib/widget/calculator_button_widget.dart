@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class CalculatorButtonWidget extends StatefulWidget {
   final String title;
   final Color color;
-  //final Function onPressed;
+  final Function onPressed;
 
-  CalculatorButtonWidget(this.title, this.color); //this.onPressed);
+  CalculatorButtonWidget(this.title, this.color, {this.onPressed});
 
   @override
   _CalculatorButtonWidgetState createState() => _CalculatorButtonWidgetState();
@@ -37,7 +37,9 @@ class _CalculatorButtonWidgetState extends State<CalculatorButtonWidget> {
           RawMaterialButton(
             shape: const CircleBorder(),
             constraints: BoxConstraints.tight(Size(70.0, 70.0)),
-            onPressed: () {},
+            onPressed: () {
+              widget.onPressed();
+            },
             child: Text(
               widget.title,
               style: TextStyle(color: Colors.white, fontSize: 35.0),
