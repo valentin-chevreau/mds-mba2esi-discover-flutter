@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class GenericButtonWidget extends StatefulWidget {
   final String title;
+  final Function buttonPressed;
 
-  GenericButtonWidget(this.title);
+  GenericButtonWidget(this.title, this.buttonPressed);
 
   @override
   _GenericButtonWidgetState createState() => _GenericButtonWidgetState();
@@ -32,6 +33,7 @@ class _GenericButtonWidgetState extends State<GenericButtonWidget> {
         });
       },
       onTapUp: (detail) {
+        widget.buttonPressed();
         setState(() {
           _color = Colors.blue;
         });
