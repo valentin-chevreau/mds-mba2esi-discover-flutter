@@ -3,9 +3,11 @@ import 'package:hello_world_flutter/page/exercice_1a_prototyping.dart';
 import 'package:hello_world_flutter/page/flutter_exercise_1b.dart';
 import 'package:hello_world_flutter/page/hero_animation_page.dart';
 import 'package:hello_world_flutter/page/image_gallery_page.dart';
+import 'package:hello_world_flutter/page/login_page.dart';
 import 'package:hello_world_flutter/page/long_list_page.dart';
 import 'package:hello_world_flutter/page/network_image_page.dart';
 import 'package:hello_world_flutter/page/object_list_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPageWidget extends StatefulWidget {
   @override
@@ -19,6 +21,20 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
       appBar: AppBar(
         title: Text('Flutter Demo App'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.remove('user');
+
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[

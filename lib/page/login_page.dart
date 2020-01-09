@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:hello_world_flutter/model/user_model.dart';
 import 'package:hello_world_flutter/page/menu_page.dart';
 import 'package:hello_world_flutter/widget/generic_button_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -84,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(height: 32.0),
             GenericButtonWidget('Login', _loginPressed),
             Container(height: 16.0),
-            GenericButtonWidget('Register', _registerPressed()),
+            GenericButtonWidget('Register', _registerPressed),
 //            GestureDetector(
 //              onTapDown: (detail) {
 //                setState(() {
@@ -145,7 +149,19 @@ class _LoginPageState extends State<LoginPage> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
+    print('|$username|');
+    print('|$password|');
+
     if (username == 'admin' && password == 'admin') {
+      User user = User(username, password);
+      String encodedJSON = jsonEncode(user.toJson());
+
+      print(encodedJSON);
+
+      //save to sharedpreferences (its a file inside the app)
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', encodedJSON);
+
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => MenuPageWidget()));
     } else {
