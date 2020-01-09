@@ -7,6 +7,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Color _loginButtonColor = Colors.deepPurple;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +52,24 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(height: 32.0),
-            LoginButtonWidget(Colors.deepPurple)
+            GestureDetector(
+              onTapDown: (detail) {
+                setState(() {
+                  _loginButtonColor = Colors.red;
+                });
+              },
+              onTapCancel: () {
+                setState(() {
+                  _loginButtonColor = Colors.deepPurple;
+                });
+              },
+              onTapUp: (detail) {
+                setState(() {
+                  _loginButtonColor = Colors.deepPurple;
+                });
+              },
+              child: LoginButtonWidget(_loginButtonColor),
+            )
           ],
         ),
       ),
