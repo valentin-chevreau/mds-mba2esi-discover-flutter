@@ -7,6 +7,8 @@ import 'package:hello_world_flutter/page/login_page.dart';
 import 'package:hello_world_flutter/page/long_list_page.dart';
 import 'package:hello_world_flutter/page/network_image_page.dart';
 import 'package:hello_world_flutter/page/object_list_page.dart';
+import 'package:hello_world_flutter/page/pokemon_list_page.dart';
+import 'package:hello_world_flutter/page/random_cat_rest_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPageWidget extends StatefulWidget {
@@ -31,7 +33,8 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.remove('user');
 
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
           ),
         ],
@@ -68,7 +71,47 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              Icons.queue,
+                              Icons.branding_watermark,
+                              color: Colors.white,
+                            ),
+                            Container(width: 12.0),
+                            Text(
+                              'Pokemon List',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          _goToPokemonList();
+                        },
+                      ),
+                      RaisedButton(
+                        color: Colors.blue,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.branding_watermark,
+                              color: Colors.white,
+                            ),
+                            Container(width: 12.0),
+                            Text(
+                              'Random Cat',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          _goToRandomCat();
+                        },
+                      ),
+                      RaisedButton(
+                        color: Colors.blue,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.branding_watermark,
                               color: Colors.white,
                             ),
                             Container(width: 12.0),
@@ -163,7 +206,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                         },
                       ),
                       RaisedButton(
-                        color: Colors.blue,
+                        color: Colors.green,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -183,7 +226,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                         },
                       ),
                       RaisedButton(
-                        color: Colors.blue,
+                        color: Colors.green,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -250,6 +293,18 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
   _goToExercice1bCalculator() {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return FlutterExcercise1b();
+    }));
+  }
+
+  _goToRandomCat() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return RandomCatPage();
+    }));
+  }
+
+  _goToPokemonList() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return PokemonListPage();
     }));
   }
 }
