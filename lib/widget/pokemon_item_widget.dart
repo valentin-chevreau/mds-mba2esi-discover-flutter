@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world_flutter/model/pokemon_card_model.dart';
-import 'package:hello_world_flutter/page/pokemon_details_page.dart';
 
 class PokemonItemWidget extends StatefulWidget {
   final PokemonCard card;
@@ -27,32 +26,21 @@ class _PokemonItemWidgetState extends State<PokemonItemWidget> {
           CachedNetworkImage(
             height: 48.0,
             width: 48.0,
-            imageUrl: widget.card.imageURL,
+            imageUrl: _imageURL,
           ),
           Container(width: 18.0),
           Expanded(
             child: Text(
-              widget.card.name,
+              _name,
               style: TextStyle(fontSize: 21.0),
             ),
           ),
           Text(
-            '#' + widget.card.id,
+            '#' + _id,
             style: TextStyle(color: Colors.grey),
-          ),
+          )
         ],
       ),
     );
-  }
-
-  _loadDetailsPage(id, name, imageURL, series, set) {
-    print(id);
-    print(name);
-    print(imageURL);
-    print(series);
-    print(set);
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return PokemonDetailsPage(id);
-    }));
   }
 }

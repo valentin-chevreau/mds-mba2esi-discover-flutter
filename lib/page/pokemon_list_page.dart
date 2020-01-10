@@ -35,16 +35,12 @@ class _PokemonListPageState extends State<PokemonListPage> {
         child: CircularProgressIndicator(),
       );
     } else {
-      return Row(
-        children: <Widget>[
-          ListView.builder(
-              itemCount: _cards.length,
-              itemBuilder: (context, index) {
-                PokemonCard card = _cards[index];
-                return PokemonItemWidget(card);
-              }),
-        ],
-      );
+      return ListView.builder(
+          itemCount: _cards.length,
+          itemBuilder: (context, index) {
+            PokemonCard card = _cards[index];
+            return PokemonItemWidget(card);
+          });
     }
   }
 
